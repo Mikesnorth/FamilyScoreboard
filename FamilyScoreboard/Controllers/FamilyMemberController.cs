@@ -2,45 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FamilyScoreboard.DataModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FamilyScoreboard.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/FamilyMembers")]
     [ApiController]
-    public class FamilyMemberController : ControllerBase
-    {
-        // GET: api/FamilyMember
+    public class FamilyMemberController : ControllerBase {
+
+        private readonly FamilyScoreboardContext _dbContext;
+
+        public FamilyMemberController(FamilyScoreboardContext dbContext) {
+            _dbContext = dbContext;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+        public IEnumerable<FamilyMember> Get() {
+            return _dbContext.FamilyMembers;
         }
 
-        // GET: api/FamilyMember/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
+        public FamilyMember Get(int id) {
+            return _dbContext.FamilyMembers.Single(_ => _.Id == id);
         }
 
-        // POST: api/FamilyMember
         [HttpPost]
-        public void Post([FromBody] string value)
-        {
+        public void Post([FromBody] FamilyMember newFamilyMember) {
+            // TODO: run validation on received data
+            _dbContext.FamilyMembers.Add(newFamilyMember);
+            _dbContext.SaveChanges();
         }
 
-        // PUT: api/FamilyMember/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+        public void Put(int id, [FromBody] FamilyMember updatedFamilyMember) {
+            // TODO: Run validation on received data
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+        public void Delete(int id) {
         }
     }
 }
