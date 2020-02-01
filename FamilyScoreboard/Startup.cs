@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using FamilyScoreboard.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 namespace FamilyScoreboard
 {
@@ -29,7 +31,9 @@ namespace FamilyScoreboard
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FamilyScoreboardContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FamilyMemeberValidator>());
+            //services.AddTransient<IValidator<FamilyMember>, FamilyMemeberValidator>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -51,6 +55,7 @@ namespace FamilyScoreboard
                 });
 
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +82,7 @@ namespace FamilyScoreboard
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Family Scoreboard V1");
             });
+
         }
     }
 }
