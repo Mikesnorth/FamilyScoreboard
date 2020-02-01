@@ -37,11 +37,17 @@ namespace FamilyScoreboard.Controllers
 
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] FamilyMember updatedFamilyMember) {
-            // TODO: Run validation on received data
+            // TODO: run validation on received data
+            var existingFamilyMember = _dbContext.FamilyMembers.Single(_ => _.Id == id);
+            existingFamilyMember = updatedFamilyMember;
+            _dbContext.SaveChanges();
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id) {
+            var familyMemeberToDelete = _dbContext.FamilyMembers.Single(_ => _.Id == id);
+            _dbContext.FamilyMembers.Remove(familyMemeberToDelete);
+            _dbContext.SaveChanges();
         }
     }
 }
