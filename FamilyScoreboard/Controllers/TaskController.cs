@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using FamilyScoreboard.DataModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,6 +60,11 @@ namespace FamilyScoreboard.Controllers
 
         [HttpDelete("{id}")]
         public void Delete(int id) {
+            var taskToDelete = _dbContext.Tasks.SingleOrDefault(_ => _.Id == id);
+            if(taskToDelete != null) {
+                _dbContext.Remove(taskToDelete);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
