@@ -24,8 +24,13 @@ namespace FamilyScoreboard.Controllers
         }
 
         [HttpGet("{id}", Name = "Get")]
-        public FamilyMember Get(int id) {
-            return _dbContext.FamilyMembers.Single(_ => _.Id == id);
+        public ActionResult Get(int id) {
+            var familyMemeber = _dbContext.FamilyMembers.SingleOrDefault(_ => _.Id == id);
+
+            if(familyMemeber == null) {
+                return NotFound();
+            }
+            return Ok(familyMemeber);
         }
 
         [HttpPost]
@@ -36,18 +41,26 @@ namespace FamilyScoreboard.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] FamilyMember updatedFamilyMember) {
+        public ActionResult Put(int id, [FromBody] FamilyMember updatedFamilyMember) {
             // TODO: run validation on received data
-            var existingFamilyMember = _dbContext.FamilyMembers.Single(_ => _.Id == id);
+            var existingFamilyMember = _dbContext.FamilyMembers.SingleOrDefault(_ => _.Id == id);
+
+            if(existingFamilyMember == null) {
+                return BadRequest($"No member exists with id: {id}");
+            }
+
             existingFamilyMember = updatedFamilyMember;
             _dbContext.SaveChanges();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id) {
-            var familyMemeberToDelete = _dbContext.FamilyMembers.Single(_ => _.Id == id);
-            _dbContext.FamilyMembers.Remove(familyMemeberToDelete);
-            _dbContext.SaveChanges();
+            var familyMemeberToDelete = _dbContext.FamilyMembers.SingleOrDefault(_ => _.Id == id);
+            if(familyMemeberToDelete != null) {
+                _dbContext.FamilyMembers.Remove(familyMemeberToDelete);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
