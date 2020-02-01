@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FamilyScoreboard.DataModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FamilyScoreboard.Controllers
@@ -19,11 +16,11 @@ namespace FamilyScoreboard.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<FamilyMember> Get() {
-            return _dbContext.FamilyMembers;
+        public ActionResult Get() {
+            return Ok(_dbContext.FamilyMembers);
         }
 
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetFamilyMember")]
         public ActionResult Get(int id) {
             var familyMemeber = _dbContext.FamilyMembers.SingleOrDefault(_ => _.Id == id);
 
@@ -33,23 +30,31 @@ namespace FamilyScoreboard.Controllers
             return Ok(familyMemeber);
         }
 
-        [HttpPost]
-        public void Post([FromBody] FamilyMember newFamilyMember) {
-            // TODO: run validation on received data
-            _dbContext.FamilyMembers.Add(newFamilyMember);
-            _dbContext.SaveChanges();
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] FamilyMember updatedFamilyMember) {
-            // TODO: run validation on received data
+        [HttpPost("{id}")]
+        public ActionResult Post(int id, [FromBody] FamilyMember updatedFamilyMember) {
             var existingFamilyMember = _dbContext.FamilyMembers.SingleOrDefault(_ => _.Id == id);
 
-            if(existingFamilyMember == null) {
-                return BadRequest($"No member exists with id: {id}");
+            if (existingFamilyMember == null)  {
+                return BadRequest($"No member exists with id: {updatedFamilyMember.Id}");
             }
 
-            existingFamilyMember = updatedFamilyMember;
+            existingFamilyMember.FirstName = updatedFamilyMember.FirstName;
+            existingFamilyMember.LastName = updatedFamilyMember.LastName;
+            existingFamilyMember.PreferredName = updatedFamilyMember.PreferredName;
+            existingFamilyMember.DateOfBirth = updatedFamilyMember.DateOfBirth;
+            
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPut]
+        public ActionResult Put(int id, [FromBody] FamilyMember newFamilyMember) {
+           
+            if(newFamilyMember.Id != default) {
+                return BadRequest("Id cannot be specified");
+            }
+
+            _dbContext.FamilyMembers.Add(newFamilyMember);
             _dbContext.SaveChanges();
             return Ok();
         }

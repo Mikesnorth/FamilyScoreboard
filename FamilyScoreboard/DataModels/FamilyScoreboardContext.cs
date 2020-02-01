@@ -7,5 +7,6 @@ namespace FamilyScoreboard.DataModels {
         public FamilyScoreboardContext(DbContextOptions<FamilyScoreboardContext> options) : base(options) { }
 
         public DbSet<FamilyMember> FamilyMembers { get; set; }
+        public DbSet<Task> Tasks { get; set; }
     }
 }

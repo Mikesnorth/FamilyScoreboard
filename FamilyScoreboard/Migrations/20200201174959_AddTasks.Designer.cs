@@ -4,14 +4,16 @@ using FamilyScoreboard.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FamilyScoreboard.Migrations
 {
     [DbContext(typeof(FamilyScoreboardContext))]
-    partial class FamilyScoreboardContextModelSnapshot : ModelSnapshot
+    [Migration("20200201174959_AddTasks")]
+    partial class AddTasks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
