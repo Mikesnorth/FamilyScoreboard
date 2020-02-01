@@ -12,9 +12,8 @@
     @foreach(var member in familyMembers) {
         <div class="row">
             <div class="col-lg-12 well">
-                @member.FirstName<br />
-                @member.LastName<br />
-                @member.DateOfBirth.ToString("MM/dd/yyyy")
+                <strong>@member.PreferredName</strong><br />
+                Birthday: @member.DateOfBirth.ToString("MM/dd/yyyy")
                 <hr />
             </div>
         </div>
