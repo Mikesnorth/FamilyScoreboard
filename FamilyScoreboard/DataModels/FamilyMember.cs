@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Collections.Generic;
 
 namespace FamilyScoreboard.DataModels {
     public class FamilyMember {
