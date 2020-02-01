@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#since I'm hosting this locally let's ignore some things we don't usually ignore
+
+**.config
+**/**/Properties/launchSettings.json
