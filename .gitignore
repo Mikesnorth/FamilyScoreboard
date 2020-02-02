@@ -352,3 +352,4 @@ MigrationBackup/
 #since I'm hosting this locally let's ignore some things we don't usually ignore
 
 **.config
+*.db
