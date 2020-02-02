@@ -80,7 +80,7 @@ namespace FamilyScoreboard
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/familyscoreboard/swagger/v1/swagger.json", "Family Scoreboard V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Family Scoreboard V1");
             });
 
         }
