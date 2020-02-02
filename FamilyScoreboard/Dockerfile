@@ -1,18 +1,24 @@
-# Get base .net core sdk image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-WORKDIR /app
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# copy csproj file and run restore
-COPY *.csproj ./
-RUN dotnet restore
+#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
+#For more information, please see https://aka.ms/containercompat
 
-# copy everything and buld
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-# generate runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-nanoserver-1903 AS base
 WORKDIR /app
 EXPOSE 80
-COPY --from=build-env /app/out .
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1903 AS build
+WORKDIR /src
+COPY ["FamilyScoreboard/FamilyScoreboard.csproj", "FamilyScoreboard/"]
+RUN dotnet restore "FamilyScoreboard/FamilyScoreboard.csproj"
+COPY . .
+WORKDIR "/src/FamilyScoreboard"
+RUN dotnet build "FamilyScoreboard.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "FamilyScoreboard.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "FamilyScoreboard.dll"]

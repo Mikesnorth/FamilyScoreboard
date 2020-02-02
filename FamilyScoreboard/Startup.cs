@@ -30,7 +30,7 @@ namespace FamilyScoreboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FamilyScoreboardContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DbContext")));
+            services.AddDbContext<FamilyScoreboardContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FamilyMemeberValidator>());
             //services.AddTransient<IValidator<FamilyMember>, FamilyMemeberValidator>();
 

@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  familyscoreboard:
+    image: ${DOCKER_REGISTRY-}familyscoreboard
+    build:
+      context: .
+      dockerfile: FamilyScoreboard\Dockerfile
