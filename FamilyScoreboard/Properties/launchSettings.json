@@ -4,7 +4,6 @@
     "anonymousAuthentication": true,
     "iis": {
       "applicationUrl": "http://localhost/familyscoreboard",
-      "sslPort": 0
     },
     "iisExpress": {
       "applicationUrl": "http://localhost:50679",
@@ -35,7 +34,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": false
     }
   }
 }
