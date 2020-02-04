@@ -1,0 +1,33 @@
+﻿@model FamilyScoreboard.ViewModels.FamilyMemberDetails
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<h2>@Model.FamilyMember.PreferredName</h2>
+
+
+<form asp-controller="Family" method="post" asp-action="MarkChoreComplete">
+    <h4>Mark a chore as completed: </h4>
+    <select asp-for="SelectedChoreId" asp-items="@(new SelectList(Model.Chores, "Id", "Name"))"></select>
+    <input asp-for="FamilyMember.Id" hidden />
+    <button type="submit"><i class="fa fa-plus"></i></button>
+</form>
+
+<hr />
+<br />
+
+<h4>Completed Chores:</h4>
+
+@if (Model.FamilyMember.CompletedChores == null || Model.FamilyMember.CompletedChores.Count == 0) {
+    <p>Womp womp. Nohting accomplished <strong>:(</strong></p>
+} else {
+    <div class="row">
+        @foreach(var chore in Model.FamilyMember.CompletedChores) {
+        <div class="col-lg-4 card">
+            <div class="card-header">@chore.Chore.Name</div>
+            <div class="card-body">@chore.Chore.Description</div>
+            <div class="card-footer">@chore.PointsEarned</div>
+        </div>
+        }
+    </div>
+}
