@@ -6,3 +6,8 @@ services:
     build:
       context: .
       dockerfile: FamilyScoreboard\Dockerfile
+  ui:
+    image: ${DOCKER_REGISTRY-}ui
+    build:
+      context: .
+      dockerfile: UI\Dockerfile
