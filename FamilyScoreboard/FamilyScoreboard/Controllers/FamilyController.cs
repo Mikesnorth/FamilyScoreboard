@@ -87,5 +87,20 @@ namespace FamilyScoreboard.Controllers {
             };
             return View("Details", model);
         }
+
+        public ActionResult RemoveCompletion(int id, int memberId) {
+            var familyMemeber = _dbContext.FamilyMemebers.Include(fm => fm.CompletedChores).Single(_ => _.Id == memberId);
+            var choreToRemove = familyMemeber.CompletedChores.Single(cc => cc.Id == id);
+
+            familyMemeber.CompletedChores.Remove(choreToRemove);
+
+            _dbContext.SaveChanges();
+
+            var model = new FamilyMemberDetails {
+                FamilyMember = _dbContext.FamilyMemebers.Single(_ => _.Id == memberId),
+                Chores = _dbContext.Chores.ToList()
+            };
+            return View("Details", model);
+        }
     }
 }

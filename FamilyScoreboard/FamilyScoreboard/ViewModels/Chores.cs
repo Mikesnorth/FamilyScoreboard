@@ -11,11 +11,14 @@ namespace FamilyScoreboard.ViewModels {
         [Required]
         [MinLength(3)]
         [MaxLength(20)]
+        [Display(Name = "Name: ")]
         public string newChoreName { get; set; }
         [Required]
         [MinLength(10)]
         [MaxLength(500)]
+        [Display(Name = "Description: ")]
         public string newChoreDescription { get; set; }
+        [Display(Name = "Point Value: ")]
         public int newChorePointValue { get; set; }
     }
 }
