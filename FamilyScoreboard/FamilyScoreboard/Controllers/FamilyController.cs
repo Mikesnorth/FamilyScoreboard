@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FamilyScoreboard.Infrastructure;
 using FamilyScoreboard.Models;
 using FamilyScoreboard.ViewModels;
@@ -34,15 +32,18 @@ namespace FamilyScoreboard.Controllers {
                 DateOfBirth = model.newMemberDateOfBirth,
                 CompletedChores = new List<CompletedChore>()
             };
+
             _dbContext.FamilyMemebers.Add(newFamilyMember);
             _dbContext.SaveChanges();
-            model.FamilyMembers.Add(newFamilyMember);
+
+            model = new Family {
+                FamilyMembers = _dbContext.FamilyMemebers.ToList()
+            };
             return View("Index", model);
         }
 
         [Route("{id}")]
         public ActionResult<Family> Remove(int id) {
-
             var memberToRemove = _dbContext.FamilyMemebers.SingleOrDefault(_ => _.Id == id);
             if(memberToRemove != null) {
                 _dbContext.FamilyMemebers.Remove(memberToRemove);

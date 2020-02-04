@@ -22,39 +22,39 @@
     <hr />
     <br />
     <h3>Add a new Family Member</h3>
-        @using (Html.BeginForm("Add", "Family", FormMethod.Post)) {
+        <form asp-controller="Family" method="post" asp-action="Add">
             <div class="row">
                 <div class="col-sm-3">
-                    @Html.LabelFor(m => m.newMemberFirstName)
+                    <label asp-for="newMemberFirstName"></label>
                 </div>
                 <div class="col-sm-6">
-                    @Html.TextBoxFor(m => m.newMemberFirstName, null, new { @class = "form-control" })
+                    <input asp-for="newMemberFirstName" class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    @Html.LabelFor(m => m.newMemberLastName)
+                    <label asp-for="newMemberLastName"></label>
                 </div>
                 <div class="col-sm-6">
-                    @Html.TextBoxFor(m => m.newMemberLastName, null, new { @class = "form-control" })
+                    <input asp-for="newMemberLastName" class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    @Html.LabelFor(m => m.newMemberPreferredName)
+                    <label asp-for="newMemberPreferredName"></label>
                 </div>
                 <div class="col-sm-6">
-                    @Html.TextBoxFor(m => m.newMemberPreferredName, null, new { @class = "form-control" })
+                    <input asp-for="newMemberPreferredName" class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    @Html.LabelFor(m => m.newMemberDateOfBirth)
+                    <label asp-for="newMemberDateOfBirth"></label>
                 </div>
                 <div class="col-sm-6">
-                    @Html.TextBoxFor(m => m.newMemberDateOfBirth, null, new { @class = "form-control date-picker" })
+                    <input asp-for="newMemberDateOfBirth" class="form-control" />
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Add Member</button>
-        }
+        </form>
 </div>
