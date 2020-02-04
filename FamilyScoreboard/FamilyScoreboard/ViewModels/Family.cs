@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FamilyScoreboard.ViewModels {
     public class Family {
-        public IEnumerable<FamilyMember> FamilyMembers { get; set; }
+        public IList<FamilyMember> FamilyMembers { get; set; }
         [Display(Name = "First Name")]
         [Required]
         [MinLength(2)]
@@ -21,6 +21,7 @@ namespace FamilyScoreboard.ViewModels {
         [Display(Name = "Preferred Name")]
         public string newMemberPreferredName { get; set; }
         [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
         public DateTimeOffset newMemberDateOfBirth { get; set; }
     }
 }

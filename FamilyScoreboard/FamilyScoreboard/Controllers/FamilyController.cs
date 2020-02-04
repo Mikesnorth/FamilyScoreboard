@@ -36,7 +36,20 @@ namespace FamilyScoreboard.Controllers {
             };
             _dbContext.FamilyMemebers.Add(newFamilyMember);
             _dbContext.SaveChanges();
-            model = new Family {
+            model.FamilyMembers.Add(newFamilyMember);
+            return View("Index", model);
+        }
+
+        [Route("{id}")]
+        public ActionResult<Family> Remove(int id) {
+
+            var memberToRemove = _dbContext.FamilyMemebers.SingleOrDefault(_ => _.Id == id);
+            if(memberToRemove != null) {
+                _dbContext.FamilyMemebers.Remove(memberToRemove);
+                _dbContext.SaveChanges();
+            }
+
+            var model = new Family {
                 FamilyMembers = _dbContext.FamilyMemebers.ToList()
             };
             return View("Index", model);

@@ -1,0 +1,53 @@
+﻿@model FamilyScoreboard.ViewModels.Chores
+
+@{
+    ViewData["Title"] = "Chores";
+}
+
+<div class="col-lg-12">
+    <div class="row">
+        @foreach (var chore in Model.ChoreList) {
+            <div class="col-lg-4 card">
+                <div class="card-header">@chore.Name</div>
+                <div class="card-body">@chore.Description</div>
+                <div class="card-footer">
+                    Pts: @chore.PointValue
+                    <span class="float-right">
+                        <a asp-action="Edit" asp-route-id="@chore.Id" disabled><i class="far fa-edit"></i></a>
+                        <a asp-action="Remove" asp-route-id="@chore.Id"><i class="far fa-trash-alt"></i></a>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+<hr />
+<h3>Add New Chore:</h3>
+<form asp-controller="Chore" method="post" asp-action="Add">
+    <div class="row form-group">
+        <div class="col-sm-3">
+            <label asp-for="newChoreName" class="col-form-label"></label>
+        </div>
+        <div class="col-sm-6">
+            <input asp-for="newChoreName" class="form-control"></label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-3">
+            <label asp-for="newChoreDescription" class="form-label"></label>
+        </div>
+        <div class="col-sm-6">
+            <input asp-for="newChoreDescription" class="form-control"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-3">
+            <label asp-for="newChorePointValue" class="col-form-label"></label>
+        </div>
+        <div class="col-sm-6">
+            <input asp-for="newChorePointValue" class="form-control"/>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
