@@ -1,0 +1,52 @@
+﻿@model FamilyScoreboard.ViewModels.Family
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <h4>Family</h4>
+    <div class="row">
+        @foreach (var member in Model.FamilyMembers) {
+            <div class="col-lg-3 card">
+                <h2>@member.PreferredName</h2>
+            </div>
+        }
+    </div>
+    <hr />
+    @using (Html.BeginForm("Add", "Family", FormMethod.Post)) {
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.newMemberFirstName)
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.newMemberFirstName, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.newMemberLastName)
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.newMemberLastName, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.newMemberPreferredName)
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.newMemberPreferredName, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.newMemberDateOfBirth)
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(m => m.newMemberDateOfBirth, null, new { @class = "form-control datetime" })
+            </div>
+        </div>
+        <button type="submit">Add Member</button>
+    }
+</div>
