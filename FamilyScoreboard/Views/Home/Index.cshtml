@@ -1,4 +1,5 @@
-﻿@{
+﻿@model FamilyScoreboard.ViewModels.Dashboard
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,4 +7,8 @@
     <h1 class="display-4">Welcome to Family Scoreboard</h1>
     <p>This is where some cool dashboard components would come in handy.</p>
     <p>Show off a weekly leaderboard or something.</p>
+    <p>Family Total this Month: @Model.TotalPointsThisMonth</p>
+    <p>Family Total this Week: @Model.TotalPointsThisWeek</p>
+    <p>This Months Leader: @Model.ThisMonthsLeader.PreferredName</p>
+    <p>This Weeks Leader: @Model.ThisWeeksLeader.PreferredName</p>
 </div>

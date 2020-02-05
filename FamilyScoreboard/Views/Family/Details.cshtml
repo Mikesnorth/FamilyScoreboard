@@ -8,9 +8,11 @@
 
 <form asp-controller="Family" method="post" asp-action="MarkChoreComplete">
     <h4>Mark a chore as completed: </h4>
-    <select asp-for="SelectedChoreId" asp-items="@(new SelectList(Model.Chores, "Id", "Name"))"></select>
+    <div class="col-md-4">
+        <select asp-for="SelectedChoreId" asp-items="@(new SelectList(Model.Chores, "Id", "Name"))" class="form-control"></select>
+        <button class="btn btn-primary form-control" type="submit">Mark Complete <i class="fa fa-plus"></i></button>
+    </div>
     <input asp-for="FamilyMember.Id" hidden />
-    <button type="submit"><i class="fa fa-plus"></i></button>
 </form>
 
 <hr />
@@ -22,15 +24,17 @@
     <p>Womp womp. Nohting accomplished <strong>:(</strong></p>
 } else {
     <div class="row">
-        @foreach(var chore in Model.FamilyMember.CompletedChores) {
-        <div class="col-lg-4 card">
-            <div class="card-header">@chore.Chore.Name</div>
-            <div class="card-body"><p>@chore.DateEntered</p>@chore.Chore.Description</div>
-            <div class="card-footer">@chore.PointsEarned
+        @foreach (var chore in Model.FamilyMember.CompletedChores) {
+            <div class="col-lg-4 card">
+                <div class="card-header">@chore.Chore.Name</div>
+                <div class="card-body"><p>@chore.DateEntered</p>@chore.Chore.Description</div>
+                <div class="card-footer">
+                    @chore.PointsEarned
                 <span class="float-right">
                     <a asp-action="RemoveCompletion" asp-all-route-data="@(new Dictionary<string, string> {{ "id", chore.Id.ToString()}, {"memberId", Model.FamilyMember.Id.ToString() }})"><i class="far fa-trash-alt"></i></a>
-                </span></div>
+                </span>
+            </div>
         </div>
-        }
+    }
     </div>
 }

@@ -8,53 +8,76 @@
     <h4>Family</h4>
     <div class="row">
         @foreach (var member in Model.FamilyMembers) {
-            <div class="col-lg-3 card">
-                <h3>@member.PreferredName
-                    <span class="float-right">
-                        <a asp-action="Details" asp-route-id="@member.Id"><i class="fas fa-eye"></i></a>
-                        <a asp-action="Edit" asp-route-id="@member.Id" disabled><i class="far fa-edit"></i></a>
-                        <a asp-action="Remove" asp-route-id="@member.Id"><i class="far fa-trash-alt"></i></a>
-                    </span>
-                </h3>
-            </div>
+        <div class="col-lg-3 card">
+            <h3>
+                @member.PreferredName
+                <span class="float-right">
+                    <a asp-action="Details" asp-route-id="@member.Id"><i class="fas fa-eye"></i></a>
+                    <a asp-action="Remove" asp-route-id="@member.Id"><i class="far fa-trash-alt"></i></a>
+                </span>
+            </h3>
+        </div>
         }
     </div>
     <hr />
     <br />
-    <h3>Add a new Family Member</h3>
-        <form asp-controller="Family" method="post" asp-action="Add">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label asp-for="newMemberFirstName"></label>
+    <a id="showFormButton" class="btn btn-primary" onclick="toggleAddFamilyMemberForm()">Add New Member <i class="fa fa-plus"></i></a>
+    <div id="addFamilyFormWrapper" style="display: none" class="row">
+        <h3>Add a new Family Member</h3>
+        <div class="col-lg-8">
+            <form asp-controller="Family" method="post" asp-action="Add">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label asp-for="newMemberFirstName"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="newMemberFirstName" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <input asp-for="newMemberFirstName" class="form-control" />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label asp-for="newMemberLastName"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="newMemberLastName" class="form-control" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label asp-for="newMemberLastName"></label>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label asp-for="newMemberPreferredName"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="newMemberPreferredName" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <input asp-for="newMemberLastName" class="form-control" />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label asp-for="newMemberDateOfBirth"></label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input asp-for="newMemberDateOfBirth" class="form-control" value="1950-01-01" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label asp-for="newMemberPreferredName"></label>
-                </div>
-                <div class="col-sm-6">
-                    <input asp-for="newMemberPreferredName" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label asp-for="newMemberDateOfBirth"></label>
-                </div>
-                <div class="col-sm-6">
-                    <input asp-for="newMemberDateOfBirth" class="form-control" value="1950-01-01" />
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Member</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Add Member</button>
+            </form>
+        </div>
+        <a id="hideFormButton" class="btn btn-primary" onclick="toggleAddFamilyMemberForm()">Hide Form <i class="fa fa-minus"></i></a>
+    </div>
 </div>
+
+<script>
+    function toggleAddFamilyMemberForm() {
+        var form = document.getElementById('addFamilyFormWrapper');
+        toggleVisibilty(form);
+
+        var showFormButton = document.getElementById('showFormButton');
+        toggleVisibilty(showFormButton);
+    }
+    function toggleVisibilty(element) {
+        if (element.style.display === "none") {
+            element.style.display = "inline";
+        } else {
+            element.style.display = "none";
+        }
+    }
+</script>
