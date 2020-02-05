@@ -1,8 +1,11 @@
 # FamilyScoreboard
 Keeping track of what family members accomplished around the house
 
+## Prerequisites
+- Docker
+
 Setup to run:
 - clone the repository
-- docker build -t \<imagename> .
-- docker run -d -p 5000:80 --name \<instancename> \<imagename> 
+- docker-compose up --build
+- browse to http://localhost:5000 to confirm
   
