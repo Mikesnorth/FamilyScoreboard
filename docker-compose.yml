@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    scoreboard:
+        build:
+            context: ./FamilyScoreboard
+        ports:
+            - "5000:80"
+        volumes:
+            - "/data"
