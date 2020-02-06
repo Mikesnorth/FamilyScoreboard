@@ -128,12 +128,12 @@ namespace FamilyScoreboard.Migrations
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reward");
+                    b.ToTable("Rewards");
                 });
 
             modelBuilder.Entity("FamilyScoreboard.Models.CompletedChore", b =>

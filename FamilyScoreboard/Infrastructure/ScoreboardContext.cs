@@ -9,6 +9,7 @@ namespace FamilyScoreboard.Infrastructure {
         public DbSet<FamilyMember> FamilyMemebers { get; set; }
         public DbSet<Chore> Chores { get; set; }
         public DbSet<CompletedChore> CompletedChores { get; set; }
+        public DbSet<Reward> Rewards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<FamilyMember>()

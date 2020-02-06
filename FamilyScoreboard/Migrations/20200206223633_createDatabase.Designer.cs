@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyScoreboard.Migrations
 {
     [DbContext(typeof(ScoreboardContext))]
-    [Migration("20200206002643_addRewardAndRedeption")]
-    partial class addRewardAndRedeption
+    [Migration("20200206223633_createDatabase")]
+    partial class createDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,12 +130,12 @@ namespace FamilyScoreboard.Migrations
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reward");
+                    b.ToTable("Rewards");
                 });
 
             modelBuilder.Entity("FamilyScoreboard.Models.CompletedChore", b =>

@@ -27,6 +27,11 @@ namespace FamilyScoreboard.Controllers {
         }
 
         public ActionResult<Family> Add(Family model) {
+            if (!ModelState.IsValid) {
+                model.FamilyMembers = _dbContext.FamilyMemebers.ToList();
+                return View("Index", model);
+            }
+
             var newFamilyMember = new FamilyMember {
                 FirstName = model.newMemberFirstName,
                 LastName = model.newMemberLastName,

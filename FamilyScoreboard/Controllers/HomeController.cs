@@ -26,8 +26,8 @@ namespace FamilyScoreboard.Controllers {
             };
             model.TotalPointsThisWeek = model.FamilyMemebers.Sum(CalculatePointsThisWeek);
             model.TotalPointsThisMonth = model.FamilyMemebers.Sum(CalculatePointsThisMonth);
-            model.ThisWeeksLeader = model.FamilyMemebers.OrderByDescending(CalculatePointsThisWeek).First();
-            model.ThisMonthsLeader = model.FamilyMemebers.OrderByDescending(CalculatePointsThisMonth).First();
+            model.ThisWeeksLeader = model.FamilyMemebers?.OrderByDescending(CalculatePointsThisWeek).FirstOrDefault();
+            model.ThisMonthsLeader = model.FamilyMemebers?.OrderByDescending(CalculatePointsThisMonth).FirstOrDefault();
             return View(model);
         }
 

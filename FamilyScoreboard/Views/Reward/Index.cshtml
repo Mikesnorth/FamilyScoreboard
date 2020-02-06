@@ -1,0 +1,76 @@
+﻿@model FamilyScoreboard.ViewModels.Rewards
+
+@{
+    ViewData["Title"] = "Rewards";
+}
+
+<div class="col-lg-12">
+    <div class="row">
+        @foreach (var reward in Model.RewardList) {
+            <div class="col-lg-4 card">
+                <div class="card-header">@reward.Name @(reward.IsEnabled == false ? "(Disabled)" : "")</div>
+                <div class="card-body">@reward.Description</div>
+                <div class="card-footer">
+                    Pts: @reward.Cost
+                    <span class="float-right">
+                        <a asp-action="Remove" asp-route-id="@reward.Id"><i class="far fa-trash-alt"></i></a>
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+<hr />
+
+
+<a id="showFormButton" class="btn btn-primary" onclick="toggleAddRewardForm()">Add New Reward <i class="fa fa-plus"></i></a>
+<div id="addRewardFormWrapper" style="display: none" class="row">
+    <div class="col-lg-8">
+        <form asp-controller="Reward" method="post" asp-action="Add">
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label asp-for="newRewardName" class="col-form-label"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="newRewardName" class="form-control" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label asp-for="newRewardDescription" class="form-label"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="newRewardDescription" class="form-control" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label asp-for="newRewardCost" class="col-form-label"></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="newRewardCost" class="form-control" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Add</button>
+        </form>
+    </div>
+    <a id="hideFormButton" class="btn btn-primary" onclick="toggleAddRewardForm()">Hide Form <i class="fa fa-minus"></i></a>
+</div>
+
+<script>
+    function toggleAddRewardForm() {
+        var form = document.getElementById('addRewardFormWrapper');
+        toggleVisibilty(form);
+
+        var showFormButton = document.getElementById('showFormButton');
+        toggleVisibilty(showFormButton);
+    }
+    function toggleVisibilty(element) {
+        if (element.style.display === "none") {
+            element.style.display = "inline";
+        } else {
+            element.style.display = "none";
+        }
+    }
+</script>

@@ -15,12 +15,17 @@ namespace FamilyScoreboard.Controllers {
 
         public IActionResult Index() {
             var model = new Chores {
-                ChoreList = _dbContext.Chores.ToList()
+                ChoreList = _dbContext.Chores?.ToList()
             };
             return View(model);
         }
 
         public IActionResult Add(Chores model) {
+            if(!ModelState.IsValid) {
+                model.ChoreList = _dbContext.Chores.ToList();
+                return View("Index", model);
+            }
+
             var newChore = new Chore {
                 Name = model.newChoreName,
                 Description = model.newChoreDescription,
