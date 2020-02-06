@@ -10,5 +10,6 @@ namespace FamilyScoreboard.ViewModels {
         public IEnumerable<Chore> Chores { get; set; }
         public IEnumerable<Redemption> Redeptions { get; set; }
         public int SelectedChoreId { get; set; }
+        public int PointsBalance { get; set; }
     }
 }

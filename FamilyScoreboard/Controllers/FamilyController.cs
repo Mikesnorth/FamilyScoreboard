@@ -64,6 +64,7 @@ namespace FamilyScoreboard.Controllers {
                 FamilyMember = _dbContext.FamilyMemebers.Include(_ => _.CompletedChores).Include(_ => _.Redeptions).Single(_ => _.Id == id),
                 Chores = _dbContext.Chores.ToList()
             };
+            model.PointsBalance = model.Chores.Sum(_ => _.PointValue) - model.Redeptions?.Sum(_ => _.Value) ?? 0;
             return View(model);
         }
         
