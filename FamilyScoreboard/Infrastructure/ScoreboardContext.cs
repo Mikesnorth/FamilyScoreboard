@@ -12,11 +12,18 @@ namespace FamilyScoreboard.Infrastructure {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<FamilyMember>()
-                .HasMany(fm => fm.CompletedChores)
-                .WithOne(cc => cc.FamilyMember);
+                .HasMany(_ => _.CompletedChores)
+                .WithOne(_ => _.FamilyMember);
+
+            modelBuilder.Entity<FamilyMember>()
+                .HasMany(_ => _.Redeptions)
+                .WithOne(_ => _.FamilyMember);
 
             modelBuilder.Entity<CompletedChore>()
                 .HasOne(cc => cc.Chore);
+
+            modelBuilder.Entity<Redemption>()
+                .HasOne(_ => _.Reward);
         }
     }
 }

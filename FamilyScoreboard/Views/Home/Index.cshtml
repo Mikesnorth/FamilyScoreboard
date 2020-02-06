@@ -9,6 +9,6 @@
     <p>Show off a weekly leaderboard or something.</p>
     <p>Family Total this Month: @Model.TotalPointsThisMonth</p>
     <p>Family Total this Week: @Model.TotalPointsThisWeek</p>
-    <p>This Months Leader: @Model.ThisMonthsLeader.PreferredName</p>
-    <p>This Weeks Leader: @Model.ThisWeeksLeader.PreferredName</p>
+    <p>This Months Leader: @Model.ThisMonthsLeader?.PreferredName</p>
+    <p>This Weeks Leader: @Model.ThisWeeksLeader?.PreferredName</p>
 </div>

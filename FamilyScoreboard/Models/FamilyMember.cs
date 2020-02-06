@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FamilyScoreboard.Models {
     public class FamilyMember {
@@ -11,5 +9,6 @@ namespace FamilyScoreboard.Models {
         public string PreferredName { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
         public ICollection<CompletedChore> CompletedChores { get; set; }
+        public ICollection<Redemption> Redeptions { get; set; }
     }
 }
