@@ -8,6 +8,7 @@ namespace FamilyScoreboard.ViewModels {
     public class FamilyMemberDetails {
         public FamilyMember FamilyMember { get; set; }
         public IEnumerable<Chore> Chores { get; set; }
+        public IEnumerable<Redemption> Redeptions { get; set; }
         public int SelectedChoreId { get; set; }
     }
 }

@@ -32,7 +32,8 @@ namespace FamilyScoreboard.Controllers {
                 LastName = model.newMemberLastName,
                 PreferredName = model.newMemberPreferredName,
                 DateOfBirth = model.newMemberDateOfBirth,
-                CompletedChores = new List<CompletedChore>()
+                CompletedChores = new List<CompletedChore>(),
+                Redeptions = new List<Redemption>()
             };
 
             _dbContext.FamilyMemebers.Add(newFamilyMember);
@@ -53,21 +54,21 @@ namespace FamilyScoreboard.Controllers {
             }
 
             var model = new Family {
-                FamilyMembers = _dbContext.FamilyMemebers.Include(fm => fm.CompletedChores).ToList()
+                FamilyMembers = _dbContext.FamilyMemebers.ToList()
             };
             return View("Index", model);
         }
 
         public ActionResult Details(int id) {
             var model = new FamilyMemberDetails {
-                FamilyMember = _dbContext.FamilyMemebers.Include(fm => fm.CompletedChores).Single(_ => _.Id == id),
+                FamilyMember = _dbContext.FamilyMemebers.Include(_ => _.CompletedChores).Include(_ => _.Redeptions).Single(_ => _.Id == id),
                 Chores = _dbContext.Chores.ToList()
             };
             return View(model);
         }
-
+        
         public ActionResult MarkChoreComplete(FamilyMemberDetails memberDetails) {
-            var familyMemeber = _dbContext.FamilyMemebers.Include(fm => fm.CompletedChores).Single(_ => _.Id == memberDetails.FamilyMember.Id);
+            var familyMemeber = _dbContext.FamilyMemebers.Include(_ => _.CompletedChores).Single(_ => _.Id == memberDetails.FamilyMember.Id);
             var choreToMark = _dbContext.Chores.Single(_ => _.Id == memberDetails.SelectedChoreId);
 
             if(familyMemeber.CompletedChores == null) {
@@ -89,7 +90,7 @@ namespace FamilyScoreboard.Controllers {
         }
 
         public ActionResult RemoveCompletion(int id, int memberId) {
-            var familyMemeber = _dbContext.FamilyMemebers.Include(fm => fm.CompletedChores).Single(_ => _.Id == memberId);
+            var familyMemeber = _dbContext.FamilyMemebers.Include(_ => _.CompletedChores).Single(_ => _.Id == memberId);
             var choreToRemove = familyMemeber.CompletedChores.Single(cc => cc.Id == id);
 
             familyMemeber.CompletedChores.Remove(choreToRemove);
